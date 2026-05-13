@@ -5,19 +5,15 @@
 #!icon = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Video.png
 
 [MitM]
-hostname = missav.*, *.missav.*, *.cloudfront.net, *.cdn2020.com, *.hdcdn.online, *.pear2.cc
+hostname = missav.ai, missav.ws, missav.com, missav123.com, *.missav.ai, *.missav.ws, *.missav.com, *.missav123.com, *.cloudfront.net, *.cdn2020.com, *.hdcdn.online, *.pear2.cc
 
 [Script]
-http-request \.m3u8 script-path=script-path=https://raw.githubusercontent.com/qiumoxixia/m3u8/refs/heads/main/missav-m3u8.js, requires-body=false, timeout=10, tag=MissAV跳转播放器
+http-request \.m3u8 script-path=https://raw.githubusercontent.com/qiumoxixia/m3u8/refs/heads/main/missav-m3u8.js, requires-body=false, timeout=10, tag=MissAV跳转播放器
 
 */
 
-const url = $request?.url || "";
-const headers = $request?.headers || {};
-
-// ===============================
-// 只允许 MissAV 相关请求触发
-// ===============================
+const url = $request && $request.url ? $request.url : "";
+const headers = $request && $request.headers ? $request.headers : {};
 
 const host = getHost(url);
 const referer = headers["Referer"] || headers["referer"] || "";
@@ -40,17 +36,9 @@ if (!isMissAV) {
   $done({});
 }
 
-// ===============================
-// 读取 BoxJs 配置
-// ===============================
-
 const boxPlayer = $persistentStore.read("missav_m3u8_player") || "VLC";
 const boxEncode = $persistentStore.read("missav_m3u8_encode") || "no";
 const boxCustomScheme = $persistentStore.read("missav_m3u8_custom_scheme") || "";
-
-// ===============================
-// 播放器 Scheme
-// ===============================
 
 const players = {
   "VLC": "vlc://",
@@ -89,10 +77,6 @@ if (boxCustomScheme.trim()) {
   scheme = players[key];
 }
 
-// ===============================
-// 生成跳转地址
-// ===============================
-
 let finalUrl = url;
 
 if (boxEncode.toLowerCase() === "yes") {
@@ -107,10 +91,6 @@ if (playerName === "Safari") {
   openUrl = scheme + finalUrl;
 }
 
-// ===============================
-// 防止同一个 m3u8 重复弹通知
-// ===============================
-
 const cacheKey = "MISSAV_LAST_M3U8_URL";
 const lastUrl = $persistentStore.read(cacheKey);
 
@@ -120,10 +100,6 @@ if (lastUrl === url) {
 }
 
 $persistentStore.write(url, cacheKey);
-
-// ===============================
-// 通知
-// ===============================
 
 console.log("捕获到 MissAV m3u8：");
 console.log(url);
