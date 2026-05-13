@@ -1,0 +1,95 @@
+{
+  "id": "qx.missav.m3u8",
+  "name": "MissAV m3u8 设置",
+  "author": "modified",
+  "repo": "",
+  "icons": [
+    "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Video.png"
+  ],
+  "apps": [
+    {
+      "id": "qx.missav.m3u8",
+      "name": "MissAV 跳转播放器",
+      "keys": [
+        "missav_m3u8_player",
+        "missav_m3u8_encode",
+        "missav_m3u8_custom_scheme"
+      ],
+      "settings": [
+        {
+          "id": "missav_m3u8_player",
+          "name": "选择播放器",
+          "val": "VLC",
+          "type": "select",
+          "items": [
+            {
+              "key": "VLC",
+              "label": "VLC"
+            },
+            {
+              "key": "Alook",
+              "label": "Alook"
+            },
+            {
+              "key": "Infuse",
+              "label": "Infuse"
+            },
+            {
+              "key": "NPlayer",
+              "label": "NPlayer"
+            },
+            {
+              "key": "SenPlayer",
+              "label": "SenPlayer"
+            },
+            {
+              "key": "VidHub",
+              "label": "VidHub"
+            },
+            {
+              "key": "Fileball",
+              "label": "Fileball"
+            },
+            {
+              "key": "KMPlayer",
+              "label": "KMPlayer"
+            },
+            {
+              "key": "IINA",
+              "label": "IINA"
+            },
+            {
+              "key": "Safari",
+              "label": "Safari"
+            }
+          ],
+          "desc": "选择点击通知后打开 m3u8 的播放器。"
+        },
+        {
+          "id": "missav_m3u8_encode",
+          "name": "URL 编码",
+          "val": "no",
+          "type": "select",
+          "items": [
+            {
+              "key": "no",
+              "label": "不编码"
+            },
+            {
+              "key": "yes",
+              "label": "编码"
+            }
+          ],
+          "desc": "如果点击通知后播放器打不开，可以改成 yes。"
+        },
+        {
+          "id": "missav_m3u8_custom_scheme",
+          "name": "自定义播放器 Scheme",
+          "val": "",
+          "type": "text",
+          "desc": "一般留空。填写后会优先使用这里的 Scheme，例如 vlc://、Alook://、nplayer-http://。"
+        }
+      ]
+    }
+  ]
+}
